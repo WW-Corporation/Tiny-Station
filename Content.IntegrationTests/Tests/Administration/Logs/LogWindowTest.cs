@@ -1,3 +1,4 @@
+#nullable enable
 using System.Collections.Generic;
 using System.Linq;
 using Content.Client.Administration.UI;
@@ -6,6 +7,7 @@ using Content.Client.Administration.UI.Logs;
 using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Systems.MenuBar.Widgets;
 using Content.IntegrationTests;
+using Content.IntegrationTests.Fixtures.Attributes;
 using Content.IntegrationTests.Tests.Interaction;
 using Content.Server.Administration.Commands;
 using Content.Server.Administration.Logs;
@@ -16,17 +18,25 @@ namespace Content.IntegrationTests.Tests.Administration.Logs;
 
 public sealed class LogWindowTest : InteractionTest
 {
-    public override PoolSettings PoolSettings => new() { Connected = true, Dirty = true, AdminLogsEnabled = true, DummyTicker = false };
+    public override PoolSettings PoolSettings => new()
+    {
+        Connected = true,
+        Dirty = true,
+        AdminLogsEnabled = true,
+        DummyTicker = false
+    };
+
+    [SidedDependency(Side.Server)] private IAdminLogManager _sLogManager = default!;
 
     [Test]
+    [Description("Tries to use the Admin Logs window to add and search for logs.")]
     public async Task TestAdminLogsWindow()
     {
         // First, generate a new log
-        var log = Server.Resolve<IAdminLogManager>();
         var guid = Guid.NewGuid();
-        await Server.WaitPost(() => log.Add(LogType.Unknown, $"{SPlayer} test log 1: {guid}"));
+        await Server.WaitPost(() => _sLogManager.Add(LogType.Unknown, $"{SPlayer} test log 1: {guid}"));
         // Tinystation edit start - wait for async admin log persistence before querying the UI
-        await WaitForLog(log, guid);
+        await WaitForLog(_sLogManager, guid);
         // Tinystation edit end
 
         // Click the admin button in the menu bar
@@ -59,9 +69,9 @@ public sealed class LogWindowTest : InteractionTest
 
         // Add a new log
         guid = Guid.NewGuid();
-        await Server.WaitPost(() => log.Add(LogType.Unknown, $"{SPlayer} test log 2: {guid}"));
+        await Server.WaitPost(() => _sLogManager.Add(LogType.Unknown, $"{SPlayer} test log 2: {guid}"));
         // Tinystation edit start - wait for async admin log persistence before querying the UI
-        await WaitForLog(log, guid);
+        await WaitForLog(_sLogManager, guid);
         // Tinystation edit end
 
         // Update the search and refresh

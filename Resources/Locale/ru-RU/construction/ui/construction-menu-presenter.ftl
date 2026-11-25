@@ -3,5 +3,8 @@ construction-presenter-to-build = Чтобы построить это, снач
 construction-presenter-step-wrapper = { $step-number }. { $text }
 construction-presenter-tool-step = Используйте { LOC($tool) }.
 construction-presenter-material-step = Добавьте { $amount } { LOC($material) }.
-construction-presenter-arbitrary-step = Добавьте { LOC($name) }.
+construction-presenter-arbitrary-step = Добавьте { $amount ->
+    [1] { LOC($name) }.
+   *[other] { $amount } { LOC($name) }.
+}
 construction-presenter-temperature-step = Нагрейте до { $temperature }.

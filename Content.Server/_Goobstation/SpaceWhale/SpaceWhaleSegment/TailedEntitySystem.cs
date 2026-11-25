@@ -45,7 +45,7 @@ public sealed partial class TailedEntitySystem : EntitySystem
 #pragma warning restore CS0618
     }
 
-    private void OnTailedShutdown(EntityUid uid, TailedEntityComponent comp, ComponentShutdown args)
+    private void OnTailedShutdown(EntityUid uid, TailedEntityComponent comp, ref ComponentShutdown args)
     {
         foreach (var seg in comp.TailSegments)
         {

@@ -118,34 +118,44 @@ namespace Content.Shared.Localizations
 
         // TODO: allow fluent to take in lists of strings so this can be a format function like it should be.
         /// <summary>
-        /// Formats a list as per the current localization grammar rules.
+        /// Formats a list as per english grammar rules.
         /// </summary>
         public static string FormatList(List<string> list)
         {
-            var andWord = Loc.GetString("zzzz-fmt-list-and");
-
             return list.Count switch
             {
                 <= 0 => string.Empty,
                 1 => list[0],
-                2 => $"{list[0]} {andWord} {list[1]}",
-                _ => $"{string.Join(", ", list.GetRange(0, list.Count - 1))}, {andWord} {list[^1]}"
+                2 => $"{list[0]} {Loc.GetString("generic-and")} {list[1]}",
+                _ => $"{string.Join(", ", list.GetRange(0, list.Count - 1))}, {Loc.GetString("generic-and")} {list[^1]}"
             };
         }
 
         /// <summary>
-        /// Formats a list but uses the localized equivalent of “or” instead of “and”.
+        /// Formats a list as per english grammar rules, but uses or instead of and.
         /// </summary>
         public static string FormatListToOr(List<string> list)
         {
-            var orWord = Loc.GetString("zzzz-fmt-list-or");
-
             return list.Count switch
             {
                 <= 0 => string.Empty,
                 1 => list[0],
-                2 => $"{list[0]} {orWord} {list[1]}",
-                _ => $"{string.Join(", ", list.GetRange(0, list.Count - 1))}, {orWord} {list[^1]}"
+                2 => $"{list[0]} {Loc.GetString("generic-or")} {list[1]}",
+                _ => $"{string.Join(", ", list.GetRange(0, list.Count - 1))}, {Loc.GetString("generic-or")} {list[^1]}"
+            };
+        }
+
+        /// <summary>
+        /// Formats a list as per english grammar rules, using "and/or" for the conjunction.
+        /// </summary>
+        public static string FormatListToAndOr(List<string> list)
+        {
+            return list.Count switch
+            {
+                <= 0 => string.Empty,
+                1 => list[0],
+                2 => $"{list[0]} {Loc.GetString("generic-and-or")} {list[1]}",
+                _ => $"{string.Join(", ", list.GetRange(0, list.Count - 1))}, {Loc.GetString("generic-and-or")} {list[^1]}",
             };
         }
 

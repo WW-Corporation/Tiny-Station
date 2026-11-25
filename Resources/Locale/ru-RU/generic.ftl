@@ -5,6 +5,7 @@ generic-article-a = это
 generic-article-an = это
 generic-and = и
 generic-or = или
+generic-and-or = и/или
 generic-unknown = неизвестно
 generic-unknown-title = Неизвестно
 generic-error = ошибка

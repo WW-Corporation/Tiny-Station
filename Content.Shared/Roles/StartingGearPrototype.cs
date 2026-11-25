@@ -16,6 +16,7 @@ public sealed partial class StartingGearPrototype : IPrototype, IInheritingProto
     public string[]? Parents { get; private set; }
 
     /// <inheritdoc/>
+    [NeverPushInheritance] // Tinystation edit - otherwise children of an abstract startingGear inherit abstract and are never loaded
     [AbstractDataField]
     public bool Abstract { get; private set; }
 

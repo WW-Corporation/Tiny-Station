@@ -14,7 +14,6 @@ public sealed partial class ShuttleComponent : Component
     /// <summary>
     /// Thrust gets multiplied by this value if it's for braking.
     /// </summary>
-    // Tinystation edit - constants cannot be serialized as DataFields.
     public const float BrakeCoefficient = 1.5f;
 
     /// <summary>
@@ -23,7 +22,6 @@ public sealed partial class ShuttleComponent : Component
     [DataField]
     public float BaseMaxLinearVelocity = 60f;
 
-    // Tinystation edit - constants cannot be serialized as DataFields.
     public const float MaxAngularVelocity = 4f;
 
     /// <summary>

@@ -543,3 +543,7 @@
     accent-knight-words-3: accent-knight-words-replace-3
     accent-knight-words-4: accent-knight-words-replace-4
     accent-knight-words-5: accent-knight-words-replace-5
+
+# used to give speech back to caks
+- type: accent
+  id: noreplacement
